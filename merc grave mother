@@ -1,0 +1,350 @@
+game.StarterGui:SetCore("SendNotification", {
+    Title = 'grev mothar guide';
+    Text = "press f9 for instruction n stuff";
+    Icon = "rbxassetid://2541869220";
+    Duration = 5;
+})
+print([[
+
+
+---== instruction ==---
+R - grave defeated
+T - grave requiem (best so far)
+Y - crouch
+U - idle
+G - appears
+K - disappears
+J - axe throw
+
+same with night demon but lesser
+
+]])
+--// Service
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+
+--// Variables
+local LocalPlayer = Players.LocalPlayer
+local distanceMultiplier = 18
+local dash_cd = true
+
+--// Dash
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent == true then
+        return
+    end
+
+    if input.KeyCode == Enum.KeyCode.LeftAlt then
+        if dash_cd == true then
+            return
+        end
+        dash_cd = true
+
+        local animation = LocalPlayer.Character.Humanoid.Animator:LoadAnimation(ReplicatedStorage.animation_sets.ai_animations.knight.dash)
+        local direction = LocalPlayer.Character.PrimaryPart.CFrame.Position + Vector3.new(0, .5, 0)
+        local bodyPosition = Instance.new("BodyPosition")
+        bodyPosition.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+        bodyPosition.P = 27500
+
+        if UserInputService:IsKeyDown(Enum.KeyCode.W) == true then direction -= LocalPlayer.Character.PrimaryPart.CFrame.ZVector * distanceMultiplier end
+        if UserInputService:IsKeyDown(Enum.KeyCode.A) == true then direction -= LocalPlayer.Character.PrimaryPart.CFrame.XVector * distanceMultiplier end
+        if UserInputService:IsKeyDown(Enum.KeyCode.S) == true then direction += LocalPlayer.Character.PrimaryPart.CFrame.ZVector * distanceMultiplier end
+        if UserInputService:IsKeyDown(Enum.KeyCode.D) == true then direction += LocalPlayer.Character.PrimaryPart.CFrame.XVector * distanceMultiplier end
+
+        if UserInputService:IsKeyDown(Enum.KeyCode.W) == false and UserInputService:IsKeyDown(Enum.KeyCode.A) == false and UserInputService:IsKeyDown(Enum.KeyCode.S) == false and UserInputService:IsKeyDown(Enum.KeyCode.D) == false then direction += LocalPlayer.Character.PrimaryPart.CFrame.ZVector * distanceMultiplier end
+
+        bodyPosition.Position = direction
+        bodyPosition.Parent = LocalPlayer.Character.PrimaryPart
+        animation:Play()
+
+        task.delay(.2, function()
+            bodyPosition:Destroy()
+
+            task.delay(.8, function()
+                cooldown = false
+            end)
+        end)
+    end
+end)
+
+--// Animations with sound
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent == true then
+        return
+    end
+
+	if input.KeyCode == Enum.KeyCode.R then
+                            local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "defeat"
+    }
+} 
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye = game:GetService("ReplicatedStorage").sound_library.terrors.mother.defeat
+ye:clone().Parent = game:GetService("SoundService")
+ye:Play()
+	local playerAnimation = LocalPlayer.Character.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.animation_sets.terror["mother"].defeat)
+    playerAnimation.Priority = Enum.AnimationPriority.Action
+    playerAnimation:Play()
+	end
+end)
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent == true then
+        return
+    end
+
+	if input.KeyCode == Enum.KeyCode.T then 
+                                   local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "requiem"
+    }
+} 
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye = game:GetService("ReplicatedStorage").sound_library.terrors.mother.requiem
+ye:clone().Parent = game:GetService("SoundService")
+ye:Play()
+                                  local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "requiem_begin"
+    }
+} 
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye2 = game:GetService("ReplicatedStorage").sound_library.terrors.mother.requiem_begin
+ye2:clone().Parent = game:GetService("SoundService")
+ye2:Play()
+	local playerAnimation = LocalPlayer.Character.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.animation_sets.terror["mother"].requiem)
+    playerAnimation.Priority = Enum.AnimationPriority.Action
+    playerAnimation:Play()
+    wait(1.5)
+                                      local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "requiem_raise"
+    }
+} 
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye3 = game:GetService("ReplicatedStorage").sound_library.terrors.mother.requiem_raise
+ye3:clone().Parent = game:GetService("SoundService")
+ye3:Play()
+                                      local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "requiem_summon"
+    }
+} 
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye4 = game:GetService("ReplicatedStorage").sound_library.terrors.mother.requiem_summon
+ye4:clone().Parent = game:GetService("SoundService")
+ye4:Play()
+	end
+end)
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent == true then
+        return
+    end
+
+	if input.KeyCode == Enum.KeyCode.Y then 
+	local playerAnimation = LocalPlayer.Character.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.animation_sets.terror["mother"].crouch)
+    playerAnimation.Priority = Enum.AnimationPriority.Action
+    playerAnimation:Play()
+	end
+end)
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent == true then
+        return
+    end
+
+	if input.KeyCode == Enum.KeyCode.U then 
+	local playerAnimation = LocalPlayer.Character.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.animation_sets.terror["mother"].start)
+    playerAnimation.Priority = Enum.AnimationPriority.Action
+    playerAnimation:Play()
+	end
+end)
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent == true then
+        return
+    end
+
+	if input.KeyCode == Enum.KeyCode.J then 
+                                                    local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "axe1"
+    }
+}
+
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye = game:GetService("ReplicatedStorage").sound_library.terrors.mother.axe1
+ye:clone().Parent = game:GetService("SoundService")
+ye:Play()
+                                                  local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "axe_ready1"
+    }
+}
+
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye2 = game:GetService("ReplicatedStorage").sound_library.terrors.mother.axe_ready1
+ye2:clone().Parent = game:GetService("SoundService")
+ye2:Play()
+	local playerAnimation = LocalPlayer.Character.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.animation_sets.terror["mother"].alt)
+    playerAnimation.Priority = Enum.AnimationPriority.Action
+    playerAnimation:Play()
+    wait(0.334)
+                                                      local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "axe_throw"
+    }
+}
+
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye3 = game:GetService("ReplicatedStorage").sound_library.terrors.mother.axe_throw
+ye3:clone().Parent = game:GetService("SoundService")
+ye3:Play()
+ wait(0.5)
+                                                   local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "axe_staked"
+    }
+}
+
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye4 = game:GetService("ReplicatedStorage").sound_library.terrors.mother.axe_staked
+ye4:clone().Parent = game:GetService("SoundService")
+ye4:Play()
+                                                  local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors", [2] = "mother"
+        },
+        ["soundfile"] = "axe_land2"
+    }
+}
+
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye5 = game:GetService("ReplicatedStorage").sound_library.terrors.mother.axe_land2
+ye5:clone().Parent = game:GetService("SoundService")
+ye5:Play()
+	end
+end)
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent == true then
+        return
+    end
+
+	if input.KeyCode == Enum.KeyCode.G then 
+                                             local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors",
+        },
+        ["soundfile"] = "transformed"
+    }
+}
+
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye = game:GetService("ReplicatedStorage").sound_library.terrors.transformed
+ye:clone().Parent = game:GetService("SoundService")
+ye:Play()
+	local playerAnimation = LocalPlayer.Character.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.animation_sets.ai_animations["nd"].wake)
+    playerAnimation.Priority = Enum.AnimationPriority.Action
+    playerAnimation:Play()
+	end
+end)
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent == true then
+        return
+    end
+
+	if input.KeyCode == Enum.KeyCode.H then 
+                                             local args = {
+    [1] = {
+        ["location"] = game:GetService("SoundService"),
+        ["directory"] = {
+            [1] = "terrors",
+        },
+        ["soundfile"] = "untransform"
+    }
+}
+workspace.mainGame.remotes.audio_relay:FireServer(unpack(args))
+
+local ye = game:GetService("ReplicatedStorage").sound_library.terrors.untransform
+ye:clone().Parent = game:GetService("SoundService")
+ye:Play()
+	local playerAnimation = LocalPlayer.Character.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.animation_sets.ai_animations["nd"].teleport)
+    playerAnimation.Priority = Enum.AnimationPriority.Action
+    playerAnimation:Play()
+	end
+end)
+--// Animations
+local animsets = ReplicatedStorage.animation_sets
+local into = ReplicatedStorage.animation_sets.terror
+animsets["sword"].equip.AnimationId = into["mother"].start.AnimationId
+animsets["sword"].sprint.AnimationId = into["mother"].start.AnimationId
+animsets["sword"].swing1.AnimationId = into["mother"].attack.AnimationId
+animsets["sword"].swing2.AnimationId = into["mother"].attack.AnimationId
+animsets["sword"].block1.AnimationId = into["mother"].alt.AnimationId
+animsets["sword"].block2.AnimationId = into["mother"].alt.AnimationId
+
+--// Functions
+game.Workspace.mainGame.active_humans.ChildAdded:Connect(function(instance)
+    task.wait(1)
+    if instance.Name == LocalPlayer.Name then
+dash_cd = false
+game:GetService("ReplicatedStorage").sound_library.terrors.music.mother:Play()
+	end
+end)
+
+game.Workspace.mainGame.active_humans.ChildRemoved:Connect(function(instance)
+    task.wait(1)
+    if instance.Name == LocalPlayer.Name then
+dash_cd = true
+	end
+end)
